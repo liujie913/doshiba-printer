@@ -2,12 +2,7 @@ package cn.com.hdect.rfid.printer;
 
 import com.sun.jna.platform.win32.WinNT;
 import com.sun.jna.platform.win32.Winspool;
-import com.sun.jna.ptr.IntByReference;
 
-import javax.usb.UsbDevice;
-import javax.usb.UsbException;
-import javax.usb.UsbHostManager;
-import javax.usb.UsbHub;
 import java.nio.charset.StandardCharsets;
 
 public class MyWinspoolUtil {
@@ -24,9 +19,9 @@ public class MyWinspoolUtil {
         try {
             boolean b1 = MyWinspool.INSTANCE.StartDocPrinter(handle.getValue(), 1,  doc);
             boolean b2 =MyWinspool.INSTANCE.StartPagePrinter(handle.getValue());
-            String commandStatus = "{WS|}"; // 打印机状态
+            String commandStatus = "{WF;A000,T24,I4,U1|}"; // 打印机状态
             String commandBackFeed = "{U2;0150|}"; // 向后进纸
-            String commandRead = "{WF|}"; // 读取标签
+            String commandRead = "{WF;A000,T24,I4,U1|}"; // 读取标签
 //            String commandWriteAndLock = "{@012;w,G2=TID,R12345678,L00300|}"; // 写入并锁定
             String commandBeforeFeed = "{U1;0150|}"; // 向前进纸
             String commandTagSize = "{D0321,0735,0301|}"; // 标签尺寸
